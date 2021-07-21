@@ -9,7 +9,7 @@ TrieIndexLogDB is a key/value datastore using log-structured files with trie str
 - Bitcask architecture / Hash Index
 ![Hash Index Log Structured DB](/images/hash_index_log_structured_db.png "Hash Index Log Structured DB")
 
--TrieIndexLogDB architecture / Trie Index
+- TrieIndexLogDB architecture / Trie Index
 ![Trie Index Log Structured DB](/images/trie_index_log_structured_db.png "Trie Index Log Structured DB")
 
 - Bitcask stores every key in memory, along with the byte offset for that key in disk
