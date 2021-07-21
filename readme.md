@@ -35,4 +35,7 @@ TrieIndexLogDB is a key/value datastore using log-structured files with trie str
 *(A string Hash (Bitcask) & Trie traversal both have the same asymptotic time complexity but Trie saves a lot of space by avoiding duplication!)*
 
 ### Future Scope
-Range Updates (by simultaneous Trie Traversal and sorted Trie Children)
+- Divide into separate classfiles
+- Implement RestAPI class as well as CLI 
+- Implement segmentation, by splitting the files (will need to convert offset into (file_segment_no, offset) pair)
+- Range Updates (by simultaneous Trie Traversal and sorted Trie Children)
