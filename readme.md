@@ -2,6 +2,10 @@ TrieIndexLogDB is a key/value datastore using log-structured files with trie str
 
 "Example of Hash Index: [Bitcask](https://docs.riak.com/riak/kv/2.2.3/setup/planning/backend/bitcask/index.html#:~:text=Bitcask%20is%20an%20Erlang%20application,that%20provide%20very%20fast%20access.) is an Erlang application that provides an API for storing and retrieving key/value data using log-structured hash tables that provide very fast access."
 
+
+- General Architecture for Log Structured DB  
+  - Every create/update appends new key value pair into the file 
+  - maintain the pointer to the ***latest*** occurance of a key in the hash table / index
 - Bitcask architecture / Hash Index
 ![Hash Index Log Structured DB](/images/hash_index_log_structured_db.png "Hash Index Log Structured DB")
 
