@@ -1,7 +1,13 @@
 #include <iostream>
+#include <unordered_map>
 
 class TrieNode {
-
+  public: // TODO make private with getter & setter
+  std::unordered_map<char, TrieNode*> children;
+  long offset;
+  TrieNode() {
+    this->offset = -1; // no file is pointed by this
+  }
 };
 
 class Trie {
@@ -12,7 +18,10 @@ class Trie {
     root = new TrieNode();
   }
   void insert(std::string key, long offset) {
-    
+    TrieNode *current;
+    for (const char& c : key) {
+      
+    }
   }
   long search(std::string key) {
 
@@ -31,5 +40,5 @@ class TILDB {
 };
 int main() {
   std::cout << "Welcome to TrieIndexLogDB!\n";
-  return 0
+  return 0;
 }
