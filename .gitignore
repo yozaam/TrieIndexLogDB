@@ -1,0 +1,5 @@
+# ignore raw database file on disk
+database/
+
+# ignore c++ build files
+*.o

@@ -66,8 +66,8 @@ class TILDB {
   }
   void setKey(std::string key, std::string value){
     writer << key;
-    writer << value << std::endl;
     long file_offset = writer.tellp();
+    writer << value << std::endl;
     trie.insert(key, file_offset);
   }
   ~TILDB() {
