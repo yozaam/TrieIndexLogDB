@@ -1,5 +1,18 @@
 TrieIndexLogDB is a key/value datastore using log-structured files with trie structured indexes, allowing very fast write access and lowering RAM requirements compared to other log-structured datastores which use Hash Table Indices
 
+# How to run ?
+
+1. Clone repo  
+`git clone https://github.com/yozaam/TrieIndexLogDB.git`
+2. Go inside directory  
+`cd TrieIndexLogDB`
+3. Compile the program  
+`g++ main.cpp -o main.o`
+4. Run the program  
+`./main.o`
+
+# Design of the engine
+
 "Example of Hash Index: [Bitcask](https://docs.riak.com/riak/kv/2.2.3/setup/planning/backend/bitcask/index.html#:~:text=Bitcask%20is%20an%20Erlang%20application,that%20provide%20very%20fast%20access.) is an Erlang application that provides an API for storing and retrieving key/value data using log-structured hash tables that provide very fast access."
 
 
