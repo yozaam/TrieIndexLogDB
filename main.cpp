@@ -21,22 +21,26 @@ class Trie {
   }
   void insert(std::string key, long offset) {
     TrieNode *current = root;
-    for (const char& c : key) {
+    for (char c : key) {
       if (current->children.count(c) == 0) {
+        // std::cout << "\t adding " << c << " to trie\n";
         current->children[c] = new TrieNode(); // TODO make a pool / pre build the trie ?
       }
       current = current->children[c];
     }
+    // std::cout << "\t adding offset " << offset << " to trienode at " << current << "\n" ;
     current->disk_offset = offset;
   }
   long search(std::string key) { // returning -1 for missing key -> should we use exceptions?
     TrieNode *current = root;
     for (const char& c : key) {
       if (current->children.count(c) == 0) {
+        // std::cout << "\t cannot find " << c << "\n";
         return -1;
       }
       current = current->children[c];
     }
+    // std::cout << "\t found offset " << current->disk_offset << " at trienode " << current << "\n" ;
     return current->disk_offset;
   }
 };
@@ -57,6 +61,7 @@ class TILDB {
     long file_offset = trie.search(key);
     std::string value = "";
     if (file_offset != -1) {
+      // std::cout << "\t offset:" << file_offset << "\n"; 
       reader.seekg(file_offset, std::ios::beg);
       std::getline(reader, value);
       return value;
@@ -67,6 +72,7 @@ class TILDB {
   void setKey(std::string key, std::string value){
     writer << key;
     long file_offset = writer.tellp();
+    // std::cout << "\t offset:" << file_offset << "\n"; 
     writer << value << std::endl;
     trie.insert(key, file_offset);
   }
@@ -79,11 +85,11 @@ class TILDB {
 class MenuCLI {
   public:
   static void show_menu(){
+    std::string filename = "default", key, value;
+    int selection;
+    TILDB *tildb = new TILDB(filename); // TODO make a pool for all different files
     while (true) {
-      std::string filename = "default", key, value;
-      int selection;
-      TILDB *tildb = new TILDB(filename); // TODO make a pool for all different files
-      std::cout << "1. Change current filename/DB \n2. Write to DB \n3. Read From DB\n";
+      std::cout << "1. Change current filename/DB \n2. Write to DB:" << filename << " \n3. Read From DB" << filename << "\n Enter choice: ";
       std::cin >> selection;
       switch (selection) {
         case 1:
@@ -97,21 +103,28 @@ class MenuCLI {
           std::cout << "  Enter Value: ";
           std::cin >> value;
           tildb->setKey(key, value);
-          std::cout << "Stored in DB\n";
+          // std::cout << " Stored in DB\n";
           break;
         case 3:
           std::cout << "  Enter Key: ";
           std::cin >> key;
           value = tildb->getKey(key);
-          std::cout << value << "\n";
+          std::cout << "  Value: " << value << "\n";
+          break;
+        default:
+          std::cout << "Invalid choice!\n";
           break;
       }
     }
   }
 };
 
+// class RestAPI {
+
+// };
+
 int main() {
-  std::cout << "Welcome to TrieIndexLogDB!\n";
+  std::cout << "Welcome to TrieIndexLogDB!\n\n";
   MenuCLI::show_menu();
   return 0;
 }
