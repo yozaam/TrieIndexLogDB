@@ -82,6 +82,20 @@ class TILDB {
   }
 };
 
+class TILDBPool {
+  private:
+  static std::unordered_map<std::string, TILDB*> pool; // TODO make this static?
+  public:
+  TILDBPool() {} // CANNOT create instance
+  static TILDB* getTILDB(std::string filename) {
+    if (pool.count(filename) == 0) {
+      pool[filename] = new TILDB(filename);
+    }
+    return pool[filename];
+  }
+};
+
+
 class MenuCLI {
   public:
   static void show_menu(){
@@ -119,9 +133,17 @@ class MenuCLI {
   }
 };
 
-// class RestAPI {
+extern "C" {
+  bool api_set_db(std::string filename, std::string key, std::string value) {
+    TILDB *tildb = TILDBPool::getTILDB(filename);
+    tildb->setKey(key, value);
+  }
 
-// };
+  std::string api_get_db(std::string filename, std::string key) {
+    TILDB *tildb = TILDBPool::getTILDB(filename);
+    tildb->getKey(key);
+  }
+}
 
 int main() {
   std::cout << "Welcome to TrieIndexLogDB!\n\n";
